@@ -1,0 +1,159 @@
+# Livingroom normal
+- name: Livingroom normal
+  entities:
+    light.stue1:
+      state: on
+      brightness: 255
+    light.stue2:
+      state: on
+      brightness: 255
+
+# Livingroom dim
+- name: Livingroom dim
+  entities:
+    light.stue1:
+      state: on
+      brightness: 40
+    light.stue2:
+      state: on
+      brightness: 40
+
+# Garage Night
+- name: GarageNat
+  entities:
+    light.garage3:
+      state: on
+      brightness: 30
+    light.garage4:
+      state: on
+      brightness: 30
+
+# Garage when door closes 
+- name: garage_when_door_closes
+  entities:
+    light.garage3:
+      state: on
+      brightness: 30
+    light.garage4:
+      state: on
+      brightness: 30
+
+# Livingroom dim
+- name: garage_opening_the_door
+  entities:
+    light.garage3:
+      state: on
+      brightness: 255
+    light.garage4:
+      state: on
+      brightness: 255
+
+# Badevaerelse dag
+- name: badevaerelsedag
+  entities:
+      light.badevaerelse2:
+        state: on
+        brightness: 255
+      light.badevaerelse1:
+        state: on
+        brightness: 255
+
+# BadevaerelseNat
+- name: BadevaerelseNat
+  entities:
+    light.badevaerelse2:
+      state: on
+      brightness: 30
+    light.badevaerelse1:
+      state: on
+      brightness: 30
+
+# KommodeAften
+- name: KommodeAften
+  entities:
+    light.kommode_stue1_lys1:
+      state: on
+      brightness: 110
+    light.kommode_stue1_lys2:
+      state: on
+      brightness: 110
+
+# Gang dag
+- name: GangDag
+  entities:
+      light.gang2:
+        state: on
+        brightness: 255
+      light.gang1:
+        state: on
+        brightness: 255
+
+# Gang nat
+- name: GangNat
+  entities:
+    light.gang2:
+      state: on
+      brightness: 30
+    light.gang1:
+      state: on
+      brightness: 30
+
+# Gang sluk
+- name: GangOff
+  entities:
+    light.gang2:
+      state: off
+    light.gang1:
+      state: off
+
+# Sovevaerelse dag
+- name: SovevaerelseDag
+  entities:
+      light.sovevaerelse:
+        state: on
+        brightness: 255
+
+# Sovevaerelse nat
+- name: SovevaerelseNat
+  entities:
+    light.sovevaerelse:
+      state: on
+      brightness: 30
+
+# turn off all lights 
+- name: SlukAltLys
+  entities:
+    light.badevaerelse1:
+      state: off
+    light.badevaerelse2:
+      state: off
+    light.gang1:
+      state: off
+    light.gang2:
+      state: off
+    light.hue_ambiance_candle_1:
+      state: off
+    light.koekken1:
+      state: off
+    light.koekken2:
+      state: off
+    light.kommode_stue1_lys1:
+      state: off
+    light.kommode_stue1_lys2:
+      state: off
+    light.legestue1:
+      state: off
+    light.legestue2:
+      state: off
+    light.legestue3:
+      state: off
+    light.sovevaerelse:
+      state: off
+    light.spisebord:
+      state: off
+    light.stue1:
+      state: off
+    light.stue2:
+      state: off
+    light.tristan1:
+      state: off

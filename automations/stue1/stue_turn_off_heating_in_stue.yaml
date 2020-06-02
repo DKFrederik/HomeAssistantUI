@@ -1,0 +1,13 @@
+id: 'stue_turn_off_heating_in_stue'
+alias: 'stue turn off heating in stue '
+description: 'turn off heating in legestue if window opens '
+trigger:
+- entity_id: binary_sensor.stor_terrassedor
+  from: 'off'
+  platform: state
+  to: 'on'
+condition: []
+action:
+- data: {}
+  entity_id: climate.stue
+  service: climate.turn_off

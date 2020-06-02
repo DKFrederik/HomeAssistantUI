@@ -1,0 +1,17 @@
+id: alarm_windows_trigger_away
+alias: Alarm Windows Trigger Alarm While Armed Away
+trigger:
+- platform: state
+  entity_id: 
+    - binary_sensor.victoriavindue1
+    - binary_sensor.victoriavindue2
+    - binary_sensor.sophievindue1
+    - binary_sensor.stor_terrassedor
+  to: 'on'
+condition:
+- condition: state
+  entity_id: alarm_control_panel.aeblevangen_alarm
+  state: armed_away
+action:
+- service: alarm_control_panel.alarm_trigger
+  entity_id: alarm_control_panel.aeblevangen_alarm

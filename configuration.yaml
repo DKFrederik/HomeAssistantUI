@@ -9,7 +9,8 @@ group: !include groups.yaml
 automation: !include automations.yaml
 automation automationDirectory: !include_dir_list automations/
 script: !include scripts.yaml
-scene: !include scenes.yaml
+scene sceneUI: !include scenes.yaml
+scene: !include scene.yaml
 sensor: !include sensor.yaml
 
 # #Lille WC

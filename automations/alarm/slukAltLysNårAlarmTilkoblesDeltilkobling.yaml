@@ -1,0 +1,12 @@
+id: 'Alarm_Sluk_Alt_Lys_Naar_Alarm_Tilkobles_Deltilkobling'
+# id: '1591136210003'
+alias: Alarm Sluk Alt Lys Naar Alarm Tilkobles Deltilkobling.....2
+description: Alarm Sluk Alt Lys Naar Alarm Tilkobles Deltilkobling
+trigger:
+- entity_id: alarm_control_panel.aeblevangen_alarm
+  from: disarmed
+  platform: state
+  to: armed_home
+condition: []
+action:
+  - scene: scene.slukaltlys

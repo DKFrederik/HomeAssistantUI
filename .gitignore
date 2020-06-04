@@ -35,3 +35,4 @@ secrets_original.yaml
 DoNotCommitToGitub/IRobotRoomba/roombaPasswordAndOtherInfo.png
 *.db-wal
 *.db-shm
+.sonoff.json

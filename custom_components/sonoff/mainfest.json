@@ -1,8 +1,0 @@
-{
-        "domain": "sonoff",
-        "name": "Sonoff Sonoff Ewelink",
-        "documentation": "https://github.com/peterbuga/HASS-sonoff-ewelink",
-        "dependencies": [],
-        "codeowners": ["dkfrederik"],
-        "requirements": ["websockets","websocket-client"]
-}

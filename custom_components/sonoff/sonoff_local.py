@@ -119,13 +119,14 @@ class EWeLinkLocal:
         deviceid = properties['id']
         device = self._devices.setdefault(deviceid, {})
 
+        log = f"{deviceid} <= Local{state_change.value}"
+
         if properties.get('encrypt'):
             devicekey = device.get('devicekey')
             if devicekey == 'skip':
                 return
             if not devicekey:
-                _LOGGER.info(f"{deviceid} <= Local{state_change.value} | "
-                             f"No devicekey for device")
+                _LOGGER.info(f"{log} | No devicekey for device")
                 # skip device next time
                 device['devicekey'] = 'skip'
                 return
@@ -139,8 +140,9 @@ class EWeLinkLocal:
                             if f'data{i}' in properties])
 
         state = json.loads(data)
+        seq = properties.get('seq')
 
-        _LOGGER.debug(f"{deviceid} <= Local{state_change.value} | {state}")
+        _LOGGER.debug(f"{log} | {state} | {seq}")
 
         host = str(ipaddress.ip_address(info.addresses[0]))
         # update every time device host change (alsow first time)
@@ -158,7 +160,7 @@ class EWeLinkLocal:
                 device['uiid'] = properties['type']
 
         for handler in self._handlers:
-            handler(deviceid, state, properties.get('seq'))
+            handler(deviceid, state, seq)
 
     async def check_offline(self, deviceid: str):
         """Try to get response from device after received Zeroconf Removed."""

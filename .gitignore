@@ -36,3 +36,4 @@ DoNotCommitToGitub/IRobotRoomba/roombaPasswordAndOtherInfo.png
 *.db-wal
 *.db-shm
 .sonoff.json
+.sonoff.json

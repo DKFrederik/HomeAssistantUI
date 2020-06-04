@@ -2,7 +2,7 @@ id: 'victoria_turn_off_heating_in_victorias_room'
 alias: 'victoria turn off heating in victorias room '
 description: 'turn off heating in victorias room if window opens '
 trigger:
-- entity_id: binary_sensor.openclose_30, binary_sensor.openclose_31
+- entity_id: binary_sensor.victoriavindue1, binary_sensor.victoriavindue2
   from: 'off'
   platform: state
   to: 'on'

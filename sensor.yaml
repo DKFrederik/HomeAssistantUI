@@ -237,13 +237,7 @@
 
 #################################################################################################################
 #                                                                                                               #
-#                                              Rengøring                                                        #       
-#                                                                                                               #
-#################################################################################################################
-
-#################################################################################################################
-#                                                                                                               #
-#                                             Vaskemaskine                                                      #       
+#                                             Vaskemaskine                                                      #
 #                                                                                                               #
 #################################################################################################################
 
@@ -264,9 +258,9 @@
       value_template: '{{ states.sensor.vaskemaskine.attributes.run_state }}'
       icon_template: >-
           {% if is_state('sun.sun', 'above_horizon') %}
-            mdi:timelapse
+            mdi:form-select
           {% else %}
-            mdi:timelapse
+            mdi:form-select
           {% endif %}
 
 - platform: template
@@ -280,16 +274,33 @@
             mdi:timelapse
           {% endif %}
 
-          - platform: template
-          sensors: 
-            vaskemaskine_børnelås:
-              value_template: '{{ states.sensor.vaskemaskine.attributes.childlock_mode }}'
-              icon_template: >-
-                  {% if is_state('sun.sun', 'above_horizon') %}
-                    mdi:timelapse
-                  {% else %}
-                    mdi:timelapse
-                  {% endif %}          
+- platform: template
+  sensors: 
+    vaskemaskine_boernelaas:
+      value_template: '{{ states.sensor.vaskemaskine.attributes.childlock_mode }}'
+      icon_template: >-
+          {% if is_state('sun.sun', 'above_horizon') %}
+            mdi:lock-open-outline
+          {% else %}
+            mdi:lock-open-outline
+          {% endif %}
+
+- platform: template
+  sensors: 
+    vaskemaskine_program:
+      value_template: '{{ states.sensor.vaskemaskine.attributes.current_course }}'
+      icon_template: >-
+          {% if is_state('sun.sun', 'above_horizon') %}
+            mdi:form-select
+          {% else %}
+            mdi:form-select
+          {% endif %} 
+
+#################################################################################################################
+#                                                                                                               #
+#                                               Darksky                                                         #
+#                                                                                                               #
+#################################################################################################################
 
 - platform: darksky
   api_key: !secret darksky
@@ -325,3 +336,17 @@
     - visibility
   scan_interval:
     minutes: 5
+
+#################################################################################################################
+#                                                                                                               #
+#                                           Eloverblik                                                          #
+#                                    Take the date from the sensor                                              #
+#                                                                                                               #
+#################################################################################################################
+
+- platform: template
+  sensors:
+    eloverblikdato:
+      friendly_name: "Eloverblikdato"
+      unit_of_measurement: 'date'
+      value_template: "{{ state_attr('sensor.eloverblik_energy_total', 'Metering date') }}"

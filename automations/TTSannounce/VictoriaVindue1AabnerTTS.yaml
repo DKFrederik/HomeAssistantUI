@@ -2,7 +2,7 @@ alias: Victoria Vindue1AabnerTTS
 id: VictoriaVindue1AabnerTTS
 trigger:
   - platform: state
-    entity_id: binary_sensor.openclose_30
+    entity_id: binary_sensor.victoriavindue1, binary_sensor.victoriavindue2
     to: 'on'
 action:
   - service: media_player.volume_set
@@ -10,7 +10,7 @@ action:
       entity_id:
       # - media_player.google_home
       - media_player.kokken
-      volume_level: '0.7'
+      volume_level: '0.9'
   # - service: tts.google_cloud_say
   - service: tts.google_cloud_say
     data:

@@ -1,0 +1,9 @@
+influxdb:
+  host: 'localhost'
+  port: !secret influxPort
+  ssl: false
+  database: !secret influxDatabase
+  username: !secret influxUsername
+  password: !secret influxPassword
+  max_retries: 5
+  # default_measurement: state

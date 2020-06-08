@@ -36,3 +36,5 @@ DoNotCommitToGitub/IRobotRoomba/roombaPasswordAndOtherInfo.png
 *.db-wal
 *.db-shm
 .sonoff.json
+notebooks/bokeh-examples
+notebooks/home-assistant

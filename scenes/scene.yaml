@@ -25,14 +25,14 @@
   entities:
     light.garage_group:
       state: on
-      brightness: 30
+      brightness: 20
 
 # Garage when bryggers door closes 
 - name: garage_when_door_closes
   entities:
     light.garage_group:
       state: on
-      brightness: 30
+      brightness: 20
 
 # Livingroom dim
 - name: garage_opening_the_door

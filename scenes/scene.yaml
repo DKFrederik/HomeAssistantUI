@@ -27,7 +27,7 @@
       state: on
       brightness: 30
 
-# Garage when door closes 
+# Garage when bryggers door closes 
 - name: garage_when_door_closes
   entities:
     light.garage_group:

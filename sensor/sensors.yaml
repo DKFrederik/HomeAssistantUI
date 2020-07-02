@@ -76,7 +76,7 @@
 #################################################################################################################
 - platform: command_line
   name: internal_ip
-  command: "hostname -I"
+  command: "hostname -i"
 
 #################################################################################################################
 #                                                                                                               #
@@ -231,7 +231,7 @@
 - platform: command_line
   name: Phoscon Uptime
   # command: "/home/homeassistant/checkUptime.sh"
-  command: "/local/scripts/checkUptime.sh"
+  command: "/config/www/scripts/checkUptime.sh"
   unit_of_measurement: ""
   value_template: '{{ value | multiply(0.001) }}'
 

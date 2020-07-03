@@ -43,6 +43,9 @@ DATE_FORMAT = "%a, %d %b %Y %H:%M:%S +0000"
 API2_ERRORS = {
     "0102": exc.NotLoggedInError,
     "0106": exc.NotConnectedError,
+    "0100": exc.FailedRequestError,
+    "0110": exc.InvalidCredentialError,
+    9000: exc.InvalidRequestError,  # Surprisingly, an integer (not a string).
 }
 
 MIN_TIME_BETWEEN_UPDATE = 25  # seconds
@@ -347,6 +350,11 @@ class Auth(object):
             self.refresh_token,
             self.user_number,
         )
+
+    def refresh_gateway(self, gateway):
+        """Refresh the gateway.
+        """
+        self.gateway = gateway
 
     def dump(self):
         return {
@@ -692,7 +700,11 @@ class ClientV2(object):
 
         return out
 
-    def refresh(self) -> None:
+    def refresh(self, refresh_gateway=False) -> None:
+        if refresh_gateway:
+            self._gateway = None
+        if not self._gateway:
+            self._auth.refresh_gateway(self.gateway)
         self._auth = self.auth.refresh()
         self._session = self.auth.start_session()
         # self._device = None

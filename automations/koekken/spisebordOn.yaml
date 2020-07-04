@@ -9,4 +9,4 @@ trigger:
     event: 1002
 action:
   service: light.turn_on
-  entity_id: light.spisebord
+  entity_id: light.spisebord_lys

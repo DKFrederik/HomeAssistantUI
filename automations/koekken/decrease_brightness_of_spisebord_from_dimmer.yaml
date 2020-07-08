@@ -10,7 +10,7 @@ trigger:
 action:
   - service: light.turn_on
     data_template:
-      entity_id: light.spisebord
+      entity_id: light.spisebord_lys
       brightness: >
-        {% set bri = state_attr('light.spisebord', 'brightness') | int %}
+        {% set bri = state_attr('light.spisebord_lys', 'brightness') | int %}
         {{ [bri-30, 0] | max }}

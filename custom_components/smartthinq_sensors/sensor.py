@@ -20,6 +20,7 @@ from homeassistant.const import (
     DEVICE_CLASS_TEMPERATURE,
     STATE_ON,
     STATE_OFF,
+    STATE_UNAVAILABLE,
     TEMP_CELSIUS,
     TEMP_FAHRENHEIT
 )
@@ -354,9 +355,21 @@ class LGESensor(Entity):
     @property
     def state(self):
         """Return the state of the sensor."""
+        if not self.available:
+            return STATE_UNAVAILABLE
         if self._is_binary:
             return STATE_ON if self.is_on else STATE_OFF
         return self._def[ATTR_VALUE_FN](self)
+
+    @property
+    def available(self) -> bool:
+        """Return True if entity is available."""
+        return self._api.available
+
+    @property
+    def assumed_state(self) -> bool:
+        """Return True if unable to access real state of the entity."""
+        return self._api.assumed_state
 
     @property
     def state_attributes(self):

@@ -9,4 +9,4 @@ trigger:
     event: 5002
 action:
   service: light.turn_off
-  entity_id: light.spisebord
+  entity_id: light.spisebord_lys

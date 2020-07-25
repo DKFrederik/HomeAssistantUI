@@ -14,7 +14,7 @@
 #################################################################################################################
 - platform: command_line
   name: Current Version
-  command: "cat /home/homeassistant/.homeassistant/.HA_VERSION"
+  command: "cat /usr/share/hassio/homeassistant/.HA_VERSION"
 #================================
 
 #################################################################################################################
@@ -168,7 +168,7 @@
 ###############################################################################################################################
 - platform: command_line
   name: Phoscon CPU Temperature
-  command: ssh "pi@192.168.3.10" "cat /sys/class/thermal/thermal_zone0/temp"
+  command: ssh "homeassistant@192.168.3.10" "cat /sys/class/thermal/thermal_zone0/temp"
   unit_of_measurement: "°C"
   value_template: '{{ value | multiply(0.001) }}'
 
@@ -211,7 +211,7 @@
 
 - platform: command_line
   name: Phoscon disk free
-  command: "/local/scripts/checkPhosconDiskFree.sh"
+  command: "/config/www/scripts/checkPhosconDiskFree.sh"
   unit_of_measurement: "GiB"
   value_template: '{{ value }}'
 
@@ -231,7 +231,7 @@
 - platform: command_line
   name: Phoscon Uptime
   # command: "/home/homeassistant/checkUptime.sh"
-  command: "/config/www/scripts/checkUptime.sh"
+  command: "/local/scripts/checkUptime.sh"
   unit_of_measurement: ""
   value_template: '{{ value | multiply(0.001) }}'
 

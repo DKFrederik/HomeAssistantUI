@@ -9,7 +9,7 @@
 
 #################################################################################################################
 #                                                                                                               #
-#                                            INstalled version                                                  #
+#                                            Installed version                                                  #
 #                                                                                                               #
 #################################################################################################################
 - platform: command_line
@@ -168,7 +168,7 @@
 ###############################################################################################################################
 - platform: command_line
   name: Phoscon CPU Temperature
-  command: ssh "homeassistant@192.168.3.10" "cat /sys/class/thermal/thermal_zone0/temp"
+  command: ssh 'homeassistant@192.168.3.10' 'cat /sys/class/thermal/thermal_zone0/temp'
   unit_of_measurement: "°C"
   value_template: '{{ value | multiply(0.001) }}'
 
@@ -231,7 +231,7 @@
 - platform: command_line
   name: Phoscon Uptime
   # command: "/home/homeassistant/checkUptime.sh"
-  command: "/local/scripts/checkUptime.sh"
+  command: "/config/www/scripts/checkUptime.sh"
   unit_of_measurement: ""
   value_template: '{{ value | multiply(0.001) }}'
 

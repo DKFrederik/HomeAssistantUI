@@ -14,7 +14,7 @@
 #################################################################################################################
 - platform: command_line
   name: Current Version
-  command: "cat /usr/share/hassio/homeassistant/.HA_VERSION"
+  command: "cat /config/.HA_VERSION"
 #================================
 
 #################################################################################################################
@@ -166,11 +166,11 @@
 #    value_template: '{{ value | multiply(0.001) }}'                                                                          #
 #                                                                                                                             #
 ###############################################################################################################################
-- platform: command_line
-  name: Phoscon CPU Temperature
-  command: ssh 'homeassistant@192.168.3.10' 'cat /sys/class/thermal/thermal_zone0/temp'
-  unit_of_measurement: "°C"
-  value_template: '{{ value | multiply(0.001) }}'
+# - platform: command_line
+#   name: Phoscon CPU Temperature
+#   command: ssh 'homeassistant@192.168.3.10' 'cat /sys/class/thermal/thermal_zone0/temp'
+#   unit_of_measurement: "°C"
+#   value_template: '{{ value | multiply(0.001) }}'
 
 #################################################################################################################
 #     First, make sure you can ssh into the remote server without password:                                     #
@@ -187,11 +187,11 @@
 #     make it executable: chmod 755                                                                             #
 #                                                                                                               #
 #################################################################################################################
-- platform: command_line
-  name: Phoscon disk usage
-  unit_of_measurement: "GiB"
-  value_template: '{{ value | multiply(0.001) }}'
-  command: "local/scripts/checkPhosconDiskUsage.sh"
+# - platform: command_line
+#   name: Phoscon disk usage
+#   unit_of_measurement: "GiB"
+#   value_template: '{{ value | multiply(0.001) }}'
+#   command: "local/scripts/checkPhosconDiskUsage.sh"
 
 #################################################################################################################
 #     First, make sure you can ssh into the remote server without password:                                     #
@@ -209,11 +209,11 @@
 #                                                                                                               #
 #################################################################################################################
 
-- platform: command_line
-  name: Phoscon disk free
-  command: "/config/www/scripts/checkPhosconDiskFree.sh"
-  unit_of_measurement: "GiB"
-  value_template: '{{ value }}'
+# - platform: command_line
+#   name: Phoscon disk free
+#   command: "/config/www/scripts/checkPhosconDiskFree.sh"
+#   unit_of_measurement: "GiB"
+#   value_template: '{{ value }}'
 
 #################################################################################################################
 #                                                                                                               #
@@ -228,12 +228,12 @@
 #                                                                                                               #
 #################################################################################################################
 
-- platform: command_line
-  name: Phoscon Uptime
-  # command: "/home/homeassistant/checkUptime.sh"
-  command: "/config/www/scripts/checkUptime.sh"
-  unit_of_measurement: ""
-  value_template: '{{ value | multiply(0.001) }}'
+# - platform: command_line
+#   name: Phoscon Uptime
+#   # command: "/home/homeassistant/checkUptime.sh"
+#   command: "/config/www/scripts/checkUptime.sh"
+#   unit_of_measurement: ""
+#   value_template: '{{ value | multiply(0.001) }}'
 
 #################################################################################################################
 #                                                                                                               #
@@ -311,6 +311,8 @@
     - 3
     - 4
     - 5
+    - 6
+    - 7
   monitored_conditions:
     - icon
     - summary
@@ -335,7 +337,11 @@
     - pressure
     - visibility
   scan_interval:
+    days: 0
+    hours: 0
     minutes: 5
+    seconds: 30
+    milliseconds: 0
 
 #################################################################################################################
 #                                                                                                               #

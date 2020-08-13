@@ -11,16 +11,8 @@ camera:
     mjpeg_url: !secret camera_url
 
   - platform: generic
-    name: ISS
-    still_image_url: http://staticmap.openstreetmap.de/staticmap.php?center={{ state_attr('binary_sensor.iss', 'lat') }},{{ state_attr('binary_sensor.iss', 'long') }}&zoom=4&size=865x512&maptype=mapnik&markers={{ state_attr('binary_sensor.iss', 'lat') }},{{ state_attr('binary_sensor.iss', 'long') }},lightblue
-    limit_refetch_to_url_change: true
-
-  - platform: mjpeg
     username: !secret camera_username
     password: !secret camera_password
     name: Reolink rlc-410-5mp-driveway
-    mjpeg_url: !secret driveway_url
-
-  # - platform: generic
-  #   name: Reolink rlc-410-5mp-driveway
-  #   still_image_url: !secret driveway_url
+    stream_source: !secret driveway_url
+    still_image_url: !secret driveway_still_image_url

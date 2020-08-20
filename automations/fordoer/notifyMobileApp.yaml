@@ -1,0 +1,18 @@
+alias: "foerdoerDoorbell"
+trigger:
+- platform: state
+  entity_id: binary_sensor.fordoer_button
+  to: 'on'
+action:
+  - service: notify.mobile_app_sm_g988b
+    data:
+      title: fordoerDoorbell
+      message: Ding dong! Der ringer på fordøren!
+      data:
+        image: /api/camera_proxy/camera.fordoer_camera
+  - service: notify.mobile_app_sm_g986b
+    data:
+      title: fordoerDoorbell
+      message: Ding dong! Der ringer på fordøren!
+      data:
+        image: /api/camera_proxy/camera.fordoer_camera

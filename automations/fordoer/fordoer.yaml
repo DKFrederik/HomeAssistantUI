@@ -1,0 +1,20 @@
+alias: fordoer dooerbeelTTS
+id: fordoerDooerbellTTS
+trigger:
+- platform: state
+  entity_id: binary_sensor.fordoer_button
+  to: 'on'
+action:
+- service: media_player.volume_set
+  data_template:
+    entity_id:
+    # - media_player.google_home
+    - media_player.kokken
+    volume_level: '0.9'
+- service: tts.google_cloud_say
+  data:
+    entity_id:
+    # - media_player.google_home
+    - media_player.kokken
+    message: "..... Der ringer på fordøren! "
+    cache: true

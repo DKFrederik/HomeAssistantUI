@@ -16,3 +16,13 @@ camera:
     name: Reolink rlc-410-5mp-driveway
     stream_source: !secret driveway_url
     still_image_url: !secret driveway_still_image_url
+
+  - platform: reolink_dev
+    host: !secret driveway_ip
+    username: !secret driveway_username
+    password: !secret  driveway_password
+    name: indkørelse
+    stream: main 
+    protocol: rtmp
+    channel: 0
+    scan_interval: 5 

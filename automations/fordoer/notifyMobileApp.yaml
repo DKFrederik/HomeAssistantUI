@@ -6,13 +6,13 @@ trigger:
 action:
   - service: notify.mobile_app_sm_g988b
     data:
-      title: fordoerDoorbell
+      title: fordoerDoorbellFrederik
       message: Ding dong! Der ringer på fordøren!
       data:
         image: /api/camera_proxy/camera.fordoer_camera
   - service: notify.mobile_app_sm_g986b
     data:
-      title: fordoerDoorbell
+      title: fordoerDoorbellTrine
       message: Ding dong! Der ringer på fordøren!
       data:
         image: /api/camera_proxy/camera.fordoer_camera

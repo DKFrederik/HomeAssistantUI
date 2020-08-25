@@ -20,5 +20,5 @@ action:
     entity_id:
     # - media_player.google_home
     - media_player.kokken
-    message: '..... Vaskemaskinen er færdig'
+    message: '..... Vaskemaskinen er færdig, tøm den trine haha'
     cache: true

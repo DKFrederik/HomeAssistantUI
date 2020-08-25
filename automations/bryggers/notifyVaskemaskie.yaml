@@ -10,7 +10,7 @@ condition: []
 action:
 - data:
     message: Vaskemaskinen er færdig.... tøm den!!!
-  service: notify.mobile_app_frederiksamsungs20ultra
+  service: notify.mobile_app_sm_g988b
 - data:
-    message: Vaskemaskinen er færdig.... tøm den!!!
+    message: Vaskemaskinen er færdig, tøm den trine haha :-D
   service: notify.mobile_app_sm_g986b

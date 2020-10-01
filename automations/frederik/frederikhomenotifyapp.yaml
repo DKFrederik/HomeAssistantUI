@@ -1,0 +1,13 @@
+id: 'Frederik is home'
+alias: frederik mobile notify when Frederik returns home
+description: ''
+trigger:
+- entity_id: person.frederik_kristian_pedersen
+  from: 'not_home'
+  platform: state
+  to: 'home'
+condition: []
+action:
+- data:
+    message: Frederik er hjemme!!!
+  service: notify.mobile_app_frederiksamsungs20ultra

@@ -1,0 +1,16 @@
+id: 'Frederik is home google'
+alias: frederik google notify when Frederik returns home
+description: ''
+trigger:
+- entity_id: person.frederik_kristian_pedersen
+  from: 'not_home'
+  platform: state
+  to: 'home'
+condition: []
+action:
+- service: tts.google_cloud_say
+  data:
+    entity_id:
+    - media_player.kokken
+    message: '..... Frederik er hjemme! '
+    cache: true

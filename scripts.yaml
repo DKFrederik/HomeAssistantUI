@@ -1,1 +1,33 @@
-{}
+playp3kokken:
+  alias: Afspil P3
+  sequence:
+    - service: media_extractor.play_media
+      data:
+        entity_id: media_player.kokken
+        media_content_id: http://live-icy.dr.dk/A/A05H.mp3.m3u
+        media_content_type: music
+
+playp4nordjyllandkokken:
+  alias: Afspil P4 Nordjylland
+  sequence:
+    - service: media_extractor.play_media
+      data:
+        entity_id: media_player.kokken
+        media_content_id: http://live-icy.dr.dk/A/A10H.mp3.m3u
+        media_content_type: music
+
+playanrkokken:
+  alias: Afspil ANR Nordjylland
+  sequence:
+    - service: media_extractor.play_media
+      data:
+        entity_id: media_player.kokken
+        media_content_id: http://stream.anr.dk/anr
+        media_content_type: music
+
+stopkokkenplayer:
+  alias: Stop Kokken player
+  sequence:
+    - service: media_player.media_stop
+      data:
+        entity_id: media_player.kokken

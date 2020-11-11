@@ -379,3 +379,10 @@
       friendly_name: "Eloverblikdato"
       unit_of_measurement: 'date'
       value_template: "{{ state_attr('sensor.eloverblik_energy_total', 'Metering date') }}"
+
+- platform: template
+  sensors:
+    eloverblikdato:
+      friendly_name: "Eloverblikdato"
+      # unit_of_measurement: 'date'
+      value_template: "{{ state_attr('weather.aeblevangen', 'condition') }}"

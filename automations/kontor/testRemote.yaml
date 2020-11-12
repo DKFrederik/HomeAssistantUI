@@ -1,5 +1,5 @@
-alias: 'kontor Toggle'
-id: kontorlys
+alias: 'Test Toggle'
+id: testlys
 initial_state: 'on'
 trigger:
   platform: event

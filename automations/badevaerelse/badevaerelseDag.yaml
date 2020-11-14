@@ -1,19 +1,19 @@
-alias: BadevaerelseDag
-id: badevaerelseDag
-trigger:
-  platform: state
-  entity_id: binary_sensor.tradfri_sensor_badevaerelse
-  to: 'on'
-# - platform: state
-#   entity_id:
-#   - light.badevaerelse1
-#   - light.badevaerelse2
+# alias: BadevaerelseDag
+# id: badevaerelseDag
+# trigger:
+#   platform: state
+#   entity_id: binary_sensor.tradfri_sensor_badevaerelse
 #   to: 'on'
-#   from: 'off'
-condition:
-- condition: state
-  entity_id: sun.sun
-  state: 'above_horizon'
-action:
-  service: scene.turn_on
-  entity_id: scene.badevaerelsedag
+# # - platform: state
+# #   entity_id:
+# #   - light.badevaerelse1
+# #   - light.badevaerelse2
+# #   to: 'on'
+# #   from: 'off'
+# condition:
+# - condition: state
+#   entity_id: sun.sun
+#   state: 'above_horizon'
+# action:
+#   service: scene.turn_on
+#   entity_id: scene.badevaerelsedag

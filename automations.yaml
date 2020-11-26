@@ -1,12 +1,1 @@
-- id: '1605210177031'
-  alias: Tag Alarm is scanned
-  description: ''
-  trigger:
-  - platform: tag
-    tag_id: 755e8b1f-e4fd-48ef-8cff-28e319e80449
-  condition: []
-  action:
-  - service: switch.toggle
-    data: {}
-    entity_id: switch.sonoff_1000319a9b
-  mode: single
+

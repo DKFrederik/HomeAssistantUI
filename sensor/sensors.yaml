@@ -310,3 +310,14 @@
       friendly_name: "Eloverblikdato"
       unit_of_measurement: 'date'
       value_template: "{{ state_attr('sensor.eloverblik_energy_total', 'Metering date') }}"
+
+- platform: template
+  sensors:
+    koekkenvarmesensor:
+      friendly_name: "koekkenvarmesensor"
+      unit_of_measurement: 'degrees'
+      value_template: "{{ state_attr('climate.floor807d3a790941_0_climate', 'temperature') }}"
+
+
+
+    

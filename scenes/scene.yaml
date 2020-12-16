@@ -55,13 +55,13 @@
       state: on
       brightness: 30
 
-# KommodeAften
-- name: KommodeAften
+# KomodeAften
+- name: KomodeAften
   entities:
-    light.kommode_stue1_lys1:
+    light.komode1:
       state: on
       brightness: 110
-    light.kommode_stue1_lys2:
+    light.komode2:
       state: on
       brightness: 110
 
@@ -117,9 +117,9 @@
       state: off
     light.koekken2:
       state: off
-    light.kommode_stue1_lys1:
+      light.komode1:
       state: off
-    light.kommode_stue1_lys2:
+      light.komode2:
       state: off
     light.legestue1:
       state: off

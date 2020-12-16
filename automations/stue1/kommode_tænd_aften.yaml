@@ -1,9 +1,9 @@
-alias: stue kommode tænd aften
-id: Kommode_tænd_aften
+alias: stue komode tænd aften
+id: Komode_tænd_aften
 trigger:
   platform: sun
   event: sunset
   offset: "-00:30:00"
 action:
   service: scene.turn_on
-  entity_id: scene.KommodeAften
+  entity_id: scene.KomodeAften

@@ -11,10 +11,12 @@ from homeassistant.const import (
     CONF_HOST,
     CONF_PASSWORD,
     CONF_PORT,
+    CONF_TIMEOUT,
     CONF_USERNAME,
     EVENT_HOMEASSISTANT_STOP,
 )
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers.network import get_url
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
 from .base import ReolinkBase
@@ -56,10 +58,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     base = ReolinkBase(
         hass,
-        entry.data[CONF_HOST],
-        entry.data[CONF_PORT],
-        entry.data[CONF_USERNAME],
-        entry.data[CONF_PASSWORD],
+        entry.data,
+        entry.options
     )
 
     base.sync_functions.append(entry.add_update_listener(update_listener))
@@ -68,7 +68,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         return False
 
     webhook_id = await register_webhook(hass, base.event_id)
-    webhook_url = hass.components.webhook.async_generate_url(webhook_id)
+    webhook_url = "{}{}".format(
+      get_url(hass, prefer_external=False),
+      hass.components.webhook.async_generate_path(webhook_id)
+    )
+
     await base.subscribe(webhook_url)
 
     hass.data[DOMAIN][entry.entry_id] = {BASE: base}
@@ -76,9 +80,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     async def async_update_data():
         """Perform the actual updates."""
 
-        async with async_timeout.timeout(10):
+        async with async_timeout.timeout(base.timeout):
             await base.renew()
-            await base.update_api()
+            await base.update_states()
 
     coordinator = DataUpdateCoordinator(
         hass,
@@ -104,53 +108,60 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 
 async def update_listener(hass: HomeAssistant, entry: ConfigEntry):
-    """Update the configuration at the base entity."""
+    """Update the configuration at the base entity and API."""
     base = hass.data[DOMAIN][entry.entry_id][BASE]
-
-    await base.api.update_streaming_options(
-        entry.options[CONF_STREAM],
-        entry.options[CONF_PROTOCOL],
-        entry.options[CONF_CHANNEL],
-    )
+    
     base.motion_off_delay = entry.options[CONF_MOTION_OFF_DELAY]
+    await base.set_timeout(entry.options[CONF_TIMEOUT])
+    await base.set_protocol(entry.options[CONF_PROTOCOL])
+    await base.set_stream(entry.options[CONF_STREAM])
 
 
 async def handle_webhook(hass, webhook_id, request):
     """Handle incoming webhook from Reolink for inbound messages and calls."""
-
     _LOGGER.debug("Reolink webhook triggered")
 
     if not request.body_exists:
-        _LOGGER.error("Webhook triggered without payload")
+        _LOGGER.debug("Webhook triggered without payload")
 
     data = await request.text()
     if not data:
-        _LOGGER.error("Webhook triggered with unknown payload")
+        _LOGGER.debug("Webhook triggered with unknown payload")
         return
 
+    _LOGGER.debug(data)
     matches = re.findall(r'Name="IsMotion" Value="(.+?)"', data)
     if matches:
         is_motion = matches[0] == "true"
     else:
-        _LOGGER.error("Webhook triggered with unknown payload")
+        _LOGGER.debug("Webhook triggered with unknown payload")
         return
 
-    _LOGGER.debug(data)
-
     handlers = hass.data["webhook"]
-
     for wid, info in handlers.items():
-        _LOGGER.debug(info)
-
         if wid == webhook_id:
             event_id = info["name"]
             hass.bus.async_fire(event_id, {"IsMotion": is_motion})
 
 
 async def register_webhook(hass, event_id):
-    """Register a webhook for motion events."""
-    webhook_id = hass.components.webhook.async_generate_id()
+    """
+    Register a webhook for motion events if it does not exist yet (in case of NVR).
+    The webhook name (in info) contains the event id (contains mac address op the camera).
+    So when motion triggers the webhook, it triggers this event. The event is handled by
+    the binary sensor, in case of NVR the binary sensor also figures out what channel has
+    the motion. So the flow is: camera onvif event->webhook->HA event->binary sensor.
+    """
+    handlers = hass.data["webhook"]
+    _LOGGER.debug("Registering webhook for event ID %s", event_id)
 
+    for webhook_id, info in handlers.items():
+        _LOGGER.debug("Webhook: %s", webhook_id)
+        _LOGGER.debug(info)
+        if info["name"] == event_id:
+            return webhook_id
+
+    webhook_id = hass.components.webhook.async_generate_id()
     hass.components.webhook.async_register(DOMAIN, event_id, webhook_id, handle_webhook)
 
     return webhook_id
@@ -160,18 +171,17 @@ async def unregister_webhook(hass: HomeAssistant, event_id):
     """Unregister the webhook for motion events."""
     handlers = hass.data["webhook"]
 
-    for eid, info in handlers.items():
-        if eid == event_id:
+    for webhook_id, info in handlers.items():  # ToDo: check other NVR streams still use this 
+        if info["name"] == event_id:
             _LOGGER.info("Unregistering webhook %s", info.name)
-            hass.components.webhook.async_unregister(event_id)
+            hass.components.webhook.async_unregister(webhook_id)
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
     """Unload a config entry."""
     base = hass.data[DOMAIN][entry.entry_id][BASE]
 
-    event_id = f"{EVENT_DATA_RECEIVED}-{base.api.mac_address.replace(':', '')}"
-    await unregister_webhook(base, event_id)
+    await unregister_webhook(hass, base.event_id)
     await base.stop()
 
     unload_ok = all(

@@ -29,17 +29,17 @@ class MotionSensor(ReolinkEntity, BinarySensorEntity):
         BinarySensorEntity.__init__(self)
 
         self._event_state = False
-        self._last_motion = datetime.datetime.now()
+        self._last_motion = datetime.datetime.min
 
     @property
     def unique_id(self):
         """Return Unique ID string."""
-        return f"reolink_motion_{self._base.api.mac_address}"
+        return f"reolink_motion_{self._base.unique_id}"
 
     @property
     def name(self):
         """Return the name of this camera."""
-        return f"{self._base.api.name} motion"
+        return f"{self._base.name} motion"
 
     @property
     def is_on(self):
@@ -74,10 +74,7 @@ class MotionSensor(ReolinkEntity, BinarySensorEntity):
     async def async_added_to_hass(self) -> None:
         """Entity created."""
         await super().async_added_to_hass()
-        event_id = (
-            f"{EVENT_DATA_RECEIVED}-{self._base.api.mac_address.replace(':', '')}"
-        )
-        self.hass.bus.async_listen(event_id, self.handle_event)
+        self.hass.bus.async_listen(self._base.event_id, self.handle_event)
 
     async def handle_event(self, event):
         """Handle incoming webhook from Reolink for inbound messages and calls."""
@@ -85,6 +82,10 @@ class MotionSensor(ReolinkEntity, BinarySensorEntity):
             return
 
         self._event_state = event.data["IsMotion"]
+        if self._base.api.channels > 1:
+            # Pull the motion state for the NVR channel, it has only 1 event
+            self._event_state = await self._base.api.get_motion_state()
+
         if self._event_state:
             self._last_motion = datetime.datetime.now()
         else:

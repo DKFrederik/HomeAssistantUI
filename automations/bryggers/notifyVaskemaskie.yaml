@@ -12,5 +12,5 @@ action:
     message: Vaskemaskinen er færdig.... tøm den!!!
   service: notify.mobile_app_sm_g988b
 - data:
-    message: Vaskemaskinen er færdig, tøm den trine haha :-D
-  service: notify.mobile_app_sm_g986b
+    message: Vaskemaskinen er færdig, tøm den sophie haha :-D
+  service: notify.mobile_app_frederik_sm_g988b

@@ -1,0 +1,8 @@
+influxdb:
+  host: a0d7b954-influxdb
+  port: 8086
+  database: !secret influxDatabase
+  username: !secret influxUsername
+  password: !secret influxPassword
+  max_retries: 3
+  default_measurement: state

@@ -10,4 +10,4 @@ condition: []
 action:
 - data:
     message: Frederik er hjemme!!!
-  service: notify.mobile_app_frederiksamsungs20ultra
+  service: notify.mobile_app_frederik_sm_g988b

@@ -10,4 +10,4 @@ condition: []
 action:
 - data:
     message: Trine er hjemme!!!
-  service: notify.mobile_app_frederiksamsungs20ultra
+  service: notify.mobile_app_trinesm_g986b
